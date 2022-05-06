@@ -98,6 +98,7 @@ async function handleRequest(request, event) {
 			},
 		});
 	}
+	/*
 	if (path === 'quack') {
 		const resObject = {
 			text: 'You just got ducked 🦆',
@@ -110,7 +111,7 @@ async function handleRequest(request, event) {
 			body: JSON.stringify(resObject),
 			headers: { 'Content-Type': 'application/json' },
 		});
-	}
+	}*/
 
 	const redirectURL = await LINKS.get(path);
 	if (redirectURL) {
@@ -119,7 +120,7 @@ async function handleRequest(request, event) {
 			body: JSON.stringify({ 'path': path }),
 			headers: { 'Content-Type': 'application/json' },
 		};
-		event.waitUntil(fetch(ANALYTICS_URL, analyticsReq));
+		//event.waitUntil(fetch(ANALYTICS_URL, analyticsReq));
 
 		return Response.redirect(redirectURL, 302);
 	}
