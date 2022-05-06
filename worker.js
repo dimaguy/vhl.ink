@@ -34,10 +34,10 @@ async function handlePOST(request) {
 	const shortener = new URL(request.url);
 	const data = await request.formData();
 	const redirectURL = data.get('url');
-	const path = data.get('path');
+	const path = data.get('path') || crypto.randomUUID().substring(0,3);
 
 	if (!redirectURL || !path)
-		return new Response('`url` and `path` need to be set.', { status: 400 });
+		return new Response('`url` must be set.', { status: 400 });
 
 	// validate redirectURL is a URL
 	try {
@@ -50,7 +50,7 @@ async function handlePOST(request) {
 
 	// will overwrite current path if it exists
 	await LINKS.put(path, redirectURL);
-	return new Response(`${redirectURL} available at ${shortener}${path}`, {
+	return new Response(`${path}`, {
 		status: 201,
 	});
 }
@@ -97,6 +97,17 @@ async function handleRequest(request, event) {
 				'content-type': 'text/html;charset=UTF-8',
 			},
 		});
+	}
+	//ShareX support path
+	if (path === 'delete') {
+		const psk = request.headers.get('x-preshared-key');
+		if (psk !== SECRET_KEY)
+			return new Response('Sorry, bad key.', { status: 403 });
+		const url = new URL(request.url);
+		const path = url.pathname.split('/')[2];
+		if (!path) return new Response('Not found', { status: 404 });
+		await LINKS.delete(path);
+		return new Response(`${request.url} deleted!`, { status: 200 });
 	}
 	/*
 	if (path === 'quack') {
