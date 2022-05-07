@@ -146,6 +146,7 @@ async function handleRequest(request, event) {
 	const url = new URL(request.url);
 	const path = url.pathname.split('/')[1];
 	// Return list of available shortlinks if user supplies admin credentials.
+	throw new BadRequestException(path);
 	if (!path) {
 		// The "Authorization" header is sent when authenticated.
 		if (request.headers.has('Authorization')) {
