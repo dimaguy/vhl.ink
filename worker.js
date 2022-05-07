@@ -115,7 +115,7 @@ async function handleRequest(request, event) {
 			let paths = "";
 			keys.forEach(element => paths += `${element.name}\n`);
 			return new Response(paths, { status: 200 });
-		});
+		};
 	}
 
 	// Not authenticated, but didn't try to authenticate
@@ -148,6 +148,30 @@ async function handleRequest(request, event) {
         },
       });
 
+	}
+	if (path === 'auth') {
+		// The "Authorization" header is sent when authenticated.
+		if (request.headers.has('Authorization')) {
+			// Throws exception when authorization fails.
+			const { user, pass } = basicAuthentication(request);
+			verifyCredentials(user, pass);
+			// Only returns this response when no exception is thrown.
+			return new Response('You have private access.', {
+				status: 200,
+				headers: {
+					'Cache-Control': 'no-store',
+				},
+			});
+			}
+
+			// Not authenticated.
+			return new Response('You need to login.', {
+				status: 401,
+				headers: {
+					// Prompts the user for credentials.
+					'WWW-Authenticate': 'Basic realm="my scope", charset="UTF-8"',
+				},
+			});
 	}
 	/*
 	if (path === 'quack') {
