@@ -240,7 +240,7 @@ async function handleRequest(request, event) {
 		};
 		//event.waitUntil(fetch(ANALYTICS_URL, analyticsReq));
 
-		return new Response.redirect(redirectURL, 302);
+		return Response.redirect(redirectURL, 302);
 	}
 
 	return new Response('URL not found. Sad!', { status: 404 });
