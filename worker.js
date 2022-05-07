@@ -159,14 +159,14 @@ async function handleRequest(request, event) {
 			keys.forEach(element => paths += `${element.name}\n`);
 			return new Response(paths, { status: 200 });
 		};
+		// Not authenticated, but didn't try to authenticate
+		return new Response(html, {
+			headers: {
+				'content-type': 'text/html;charset=UTF-8',
+			},
+		});
 	}
 
-	// Not authenticated, but didn't try to authenticate
-	return new Response(html, {
-		headers: {
-			'content-type': 'text/html;charset=UTF-8',
-		},
-	});
 	//ShareX support path
 	if (path === 'delete') {
 		// The "Authorization" header is sent when authenticated.
@@ -232,16 +232,17 @@ async function handleRequest(request, event) {
 	}*/
 
 	const redirectURL = await LINKS.get(path);
-	if (redirectURL) {/*
+	if (redirectURL) {
 		const analyticsReq = {
 			method: 'POST',
 			body: JSON.stringify({ 'path': path }),
 			headers: { 'Content-Type': 'application/json' },
 		};
-		event.waitUntil(fetch(ANALYTICS_URL, analyticsReq));*/
+		//event.waitUntil(fetch(ANALYTICS_URL, analyticsReq));
 
 		return new Response.redirect(redirectURL, 302);
 	}
+
 	return new Response('URL not found. Sad!', { status: 404 });
 }
 
