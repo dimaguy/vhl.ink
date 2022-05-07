@@ -146,7 +146,7 @@ async function handleRequest(request, event) {
 	const url = new URL(request.url);
 	const path = url.pathname.split('/')[1];
 	// Return list of available shortlinks if user supplies admin credentials.
-	throw new BadRequestException(await LINKS.get(path));
+
 	if (!path) {
 		// The "Authorization" header is sent when authenticated.
 		if (request.headers.has('Authorization')) {
@@ -232,17 +232,16 @@ async function handleRequest(request, event) {
 	}*/
 
 	const redirectURL = await LINKS.get(path);
-	if (redirectURL) {
+	if (redirectURL) {/*
 		const analyticsReq = {
 			method: 'POST',
 			body: JSON.stringify({ 'path': path }),
 			headers: { 'Content-Type': 'application/json' },
 		};
-		//event.waitUntil(fetch(ANALYTICS_URL, analyticsReq));
+		event.waitUntil(fetch(ANALYTICS_URL, analyticsReq));*/
 
-		return Response.redirect(redirectURL, 302);
+		return new Response.redirect(redirectURL, 302);
 	}
-
 	return new Response('URL not found. Sad!', { status: 404 });
 }
 
