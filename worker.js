@@ -215,7 +215,7 @@ function verifyCredentials(user, pass) {
 	throw new UnauthorizedException('Invalid username.');
 	}*/
 	if (SECRET_KEY !== pass) {
-		return new Response('Unauthorized: Invalid password.', {status: 404})
+		throw new Response('Unauthorized: Invalid password.', {status: 404})
 		//throw new UnauthorizedException('Invalid password.');
 	}
 }
