@@ -58,9 +58,9 @@ const html = `<!DOCTYPE html>
     <pre>
     use an actual path if you're trying to fetch something.
     send a POST request with form data "url" and "path" if you're trying to put something.
-    set x-preshared-key header for authentication.
+    Use HTTP Basic Auth for authentication.
     
-    source: <a href="https://github.com/VandyHacks/vhl.ink">VandyHacks/vhl.ink</a>
+    source: <a href="https://github.com/dimaguy/vhl.ink">dimaguy/vhl.ink</a>
     </pre>
 </body>`;
 
@@ -212,7 +212,7 @@ async function handleRequest(request, event) {
 				status: 401,
 				headers: {
 					// Prompts the user for credentials.
-					'WWW-Authenticate': 'Basic realm="my scope", charset="UTF-8"',
+					'WWW-Authenticate': 'Basic realm="s.linkpuff.me", charset="UTF-8"',
 				},
 			});
 	}
