@@ -62,6 +62,14 @@ const html = `<!DOCTYPE html>
     
     source: <a href="https://github.com/dimaguy/vhl.ink">dimaguy/vhl.ink</a>
     </pre>
+	<form action="/" target="result">
+	<label for="url">Link*:</label><br>
+	<input type="text" id="url" name="url" value=""><br>
+	<label for="path">Path:</label><br>
+	<input type="text" id="path" name="path" value=""><br><br>
+	<input type="submit" value="Shorten!"><br>
+	<iframe src="about:blank" title="result"></iframe> 
+	</form>
 </body>`;
 
 /**
