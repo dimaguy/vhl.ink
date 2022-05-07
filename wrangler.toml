@@ -1,9 +1,9 @@
 name = "vhlink"
 type = "javascript"
-account_id = "39a76d640a29996bffbd58c36a537c2b"
+account_id = "b4f100aa4036a0a519789397ef147b89"
 workers_dev = true
-route = ""
-zone_id = ""
+route = "https://s.linkpuff.me/*"
+zone_id = "linkpuff.me"
 kv_namespaces = [
   { binding = "LINKS", id = "9deaabf5f0434fe0883e5b2f5c6b31fa", preview_id = "79deaabf5f0434fe0883e5b2f5c6b31fa" }
 ]
