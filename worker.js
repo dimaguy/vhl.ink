@@ -62,7 +62,7 @@ const html = `<!DOCTYPE html>
     
     source: <a href="https://github.com/dimaguy/vhl.ink">dimaguy/vhl.ink</a>
     </pre>
-	<form action="/" target="result">
+	<form action="/" target="result" method="post">
 	<label for="url">Link*:</label><br>
 	<input type="text" id="url" name="url" value=""><br>
 	<label for="path">Path:</label><br>
