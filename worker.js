@@ -3,11 +3,53 @@ addEventListener('fetch', event => {
 
 	switch (request.method) {
 		case 'POST':
-			return event.respondWith(handlePOST(request));
+			return event.respondWith(handlePOST(request).catch(err => {
+				const message = err.reason || err.stack || 'Unknown Error';
+		  
+				return new Response(message, {
+				  status: err.status || 500,
+				  statusText: err.statusText || null,
+				  headers: {
+					'Content-Type': 'text/plain;charset=UTF-8',
+					// Disables caching by default.
+					'Cache-Control': 'no-store',
+					// Returns the "Content-Length" header for HTTP HEAD requests.
+					'Content-Length': message.length,
+				},
+			});
+		}));
 		case 'DELETE':
-			return event.respondWith(handleDELETE(request));
+			return event.respondWith(handleDELETE(request).catch(err => {
+				const message = err.reason || err.stack || 'Unknown Error';
+		  
+				return new Response(message, {
+				  status: err.status || 500,
+				  statusText: err.statusText || null,
+				  headers: {
+					'Content-Type': 'text/plain;charset=UTF-8',
+					// Disables caching by default.
+					'Cache-Control': 'no-store',
+					// Returns the "Content-Length" header for HTTP HEAD requests.
+					'Content-Length': message.length,
+				},
+			});
+		}));
 		default:
-			return event.respondWith(handleRequest(request, event));
+			return event.respondWith(handleRequest(request, event).catch(err => {
+				const message = err.reason || err.stack || 'Unknown Error';
+		  
+				return new Response(message, {
+				  status: err.status || 500,
+				  statusText: err.statusText || null,
+				  headers: {
+					'Content-Type': 'text/plain;charset=UTF-8',
+					// Disables caching by default.
+					'Cache-Control': 'no-store',
+					// Returns the "Content-Length" header for HTTP HEAD requests.
+					'Content-Length': message.length,
+				},
+			});
+		}));
 	}
 });
 
@@ -215,8 +257,8 @@ function verifyCredentials(user, pass) {
 	throw new UnauthorizedException('Invalid username.');
 	}*/
 	if (SECRET_KEY !== pass) {
-		throw new Response('Unauthorized: Invalid password.', {status: 404})
-		//throw new UnauthorizedException('Invalid password.');
+		//throw new Response('Unauthorized: Invalid password.', {status: 404})
+		throw new UnauthorizedException('Invalid password.');
 	}
 }
 
