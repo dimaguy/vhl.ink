@@ -2,7 +2,6 @@ name = "vhlink"
 account_id = "b4f100aa4036a0a519789397ef147b89"
 workers_dev = true
 route = "https://s.linkpuff.me/*"
-zone_id = "71541789ad797d299ab69092c6beef31"
 compatibility_date = "2022-05-17"
 main = "./worker.js"
 kv_namespaces = [
